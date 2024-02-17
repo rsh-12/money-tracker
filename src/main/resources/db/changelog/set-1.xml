@@ -51,6 +51,7 @@
                   AND table_schema = 'money_tracker';
             </sqlCheck>
         </preConditions>
+        <comment>Создание таблицы 'Категория'</comment>
         <sql><![CDATA[
             CREATE TABLE IF NOT EXISTS money_tracker.category
             (
@@ -78,6 +79,7 @@
                   AND table_schema = 'money_tracker';
             </sqlCheck>
         </preConditions>
+        <comment>Создание таблицы 'Связь расходов с категориями'</comment>
         <sql><![CDATA[
             CREATE TABLE IF NOT EXISTS money_tracker.expense_category
             (
