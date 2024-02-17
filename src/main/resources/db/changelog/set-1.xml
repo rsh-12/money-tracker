@@ -1,0 +1,97 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="20240217-01" author="rakhmonov">
+        <sql><![CDATA[
+            CREATE SCHEMA IF NOT EXISTS money_tracker;
+            ]]>
+        </sql>
+    </changeSet>
+
+
+    <changeSet id="20240217-02" author="rakhmonov">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*)
+                FROM information_schema.tables
+                WHERE table_name = 'expense'
+                  AND table_schema = 'money_tracker';
+            </sqlCheck>
+        </preConditions>
+        <comment>Создание таблицы 'Расходы'</comment>
+        <sql><![CDATA[
+            CREATE TABLE IF NOT EXISTS money_tracker.expense
+            (
+                id         BIGSERIAL PRIMARY KEY,
+                title      VARCHAR        NOT NULL,
+                amount     NUMERIC(38, 2) NOT NULL DEFAULT 0,
+                created_at timestamptz             DEFAULT CURRENT_TIMESTAMP,
+                updated_at timestamptz             DEFAULT CURRENT_TIMESTAMP
+            );
+
+            COMMENT ON TABLE money_tracker.expense IS 'Таблица Расходы';
+            COMMENT ON COLUMN money_tracker.expense.id IS 'ID расхода';
+            COMMENT ON COLUMN money_tracker.expense.title IS 'Наименование товаров или услуг';
+            COMMENT ON COLUMN money_tracker.expense.amount IS 'Сумма расходов';
+            COMMENT ON COLUMN money_tracker.expense.created_at IS 'Дата и время создания записи';
+            COMMENT ON COLUMN money_tracker.expense.updated_at IS 'Дата и время обновления записи';
+            ]]>
+        </sql>
+    </changeSet>
+    
+    <changeSet id="20240217-03" author="rakhmonov">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*)
+                FROM information_schema.tables
+                WHERE table_name = 'category'
+                  AND table_schema = 'money_tracker';
+            </sqlCheck>
+        </preConditions>
+        <sql><![CDATA[
+            CREATE TABLE IF NOT EXISTS money_tracker.category
+            (
+                id         BIGSERIAL PRIMARY KEY,
+                name       VARCHAR NOT NULL UNIQUE,
+                created_at timestamptz DEFAULT CURRENT_TIMESTAMP,
+                updated_at timestamptz DEFAULT CURRENT_TIMESTAMP
+            );
+
+            COMMENT ON TABLE money_tracker.category IS 'Таблица Категории';
+            COMMENT ON COLUMN money_tracker.category.id IS 'ID категории';
+            COMMENT ON COLUMN money_tracker.category.name IS 'Наименование категории';
+            COMMENT ON COLUMN money_tracker.category.created_at IS 'Дата и время создания записи';
+            COMMENT ON COLUMN money_tracker.category.updated_at IS 'Дата и время обновления записи';
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="20240217-04" author="rakhmonov">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*)
+                FROM information_schema.tables
+                WHERE table_name = 'expense_category'
+                  AND table_schema = 'money_tracker';
+            </sqlCheck>
+        </preConditions>
+        <sql><![CDATA[
+            CREATE TABLE IF NOT EXISTS money_tracker.expense_category
+            (
+                id          BIGSERIAL PRIMARY KEY,
+                expense_id  BIGINT REFERENCES money_tracker.expense (id) ON DELETE CASCADE,
+                category_id BIGINT REFERENCES money_tracker.category (id) ON DELETE CASCADE
+            );
+
+            COMMENT ON TABLE money_tracker.expense_category IS 'Таблица Связь расходов с категориями';
+            COMMENT ON COLUMN money_tracker.expense_category.id IS 'ID записи';
+            COMMENT ON COLUMN money_tracker.expense_category.expense_id IS 'FK, ссылающийся на таблицу расходов';
+            COMMENT ON COLUMN money_tracker.expense_category.category_id IS 'FK, ссылающийся на таблицу категорий';
+            ]]>
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
