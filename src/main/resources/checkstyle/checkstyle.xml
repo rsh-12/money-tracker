@@ -1,0 +1,49 @@
+<!DOCTYPE module PUBLIC
+        "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
+        "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
+<module name="Checker">
+    <module name="FileLength"/>
+    <module name="TreeWalker">
+        <module name="ClassFanOutComplexity">
+            <property name="severity" value="warning"/>
+        </module>
+        <module name="MethodLength"/>
+        <module name="LocalFinalVariableName"/>
+        <module name="LocalVariableName"/>
+        <module name="PackageName">
+            <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]*)*$"/>
+        </module>
+        <module name="ParameterName "/>
+        <module name="MethodParamPad"/>
+        <module name="TypecastParenPad"/>
+        <module name="EmptyBlock"/>
+        <module name="NeedBraces"/>
+        <module name="AvoidNestedBlocks">
+            <property name="allowInSwitchCase" value="true"/>
+        </module>
+        <module name="EmptyStatement"/>
+        <module name="IllegalToken"/>
+        <module name="InnerAssignment"/>
+        <module name="ModifiedControlVariable"/>
+        <module name="SimplifyBooleanExpression"/>
+        <module name="SimplifyBooleanReturn"/>
+        <module name="StringLiteralEquality"/>
+        <module name="NestedIfDepth">
+            <property name="max" value="3"/>
+        </module>
+        <module name="NestedTryDepth">
+            <property name="max" value="2"/>
+        </module>
+        <module name="PackageDeclaration"/>
+        <module name="ReturnCount">
+            <property name="max" value="4"/>
+        </module>
+        <module name="ExplicitInitialization"/>
+        <module name="MultipleVariableDeclarations"/>
+        <module name="BooleanExpressionComplexity">
+            <property name="max" value="3"/>
+        </module>
+        <module name="ArrayTypeStyle"/>
+        <module name="UnusedImports"/>
+    </module>
+</module>
