@@ -26,8 +26,9 @@
             CREATE TABLE IF NOT EXISTS money_tracker.expense
             (
                 id         BIGSERIAL PRIMARY KEY,
-                title      VARCHAR        NOT NULL,
+                title      TEXT           NOT NULL,
                 amount     NUMERIC(38, 2) NOT NULL DEFAULT 0,
+                comment    TEXT,
                 created_at timestamptz             DEFAULT CURRENT_TIMESTAMP,
                 updated_at timestamptz             DEFAULT CURRENT_TIMESTAMP
             );
@@ -36,6 +37,7 @@
             COMMENT ON COLUMN money_tracker.expense.id IS 'ID расхода';
             COMMENT ON COLUMN money_tracker.expense.title IS 'Наименование товаров или услуг';
             COMMENT ON COLUMN money_tracker.expense.amount IS 'Сумма расходов';
+            COMMENT ON COLUMN money_tracker.expense.comment IS 'Комментарий';
             COMMENT ON COLUMN money_tracker.expense.created_at IS 'Дата и время создания записи';
             COMMENT ON COLUMN money_tracker.expense.updated_at IS 'Дата и время обновления записи';
             ]]>
@@ -56,7 +58,7 @@
             CREATE TABLE IF NOT EXISTS money_tracker.category
             (
                 id         BIGSERIAL PRIMARY KEY,
-                name       VARCHAR NOT NULL UNIQUE,
+                name       TEXT NOT NULL UNIQUE,
                 created_at timestamptz DEFAULT CURRENT_TIMESTAMP,
                 updated_at timestamptz DEFAULT CURRENT_TIMESTAMP
             );
