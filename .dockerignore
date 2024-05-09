@@ -1,0 +1,6 @@
+data/
+.idea/
+*.iml
+*.iws
+.sonar/
+.sonarlint/
