@@ -1,6 +1,20 @@
+# Project
 data/
 .idea/
 *.iml
 *.iws
 .sonar/
 .sonarlint/
+.github
+*.md
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Docker
+docker-compose.yml
+Dockerfile
+.docker
+.dockerignore
