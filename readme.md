@@ -17,6 +17,11 @@ Todo:
 - [ ] Nginx (docker)
 
 ---
+### ВАЖНО!
+Перед началом работы нужно:
+1. Создать `.env` файл и прописать туда нужные переменные среды (см. `docker-compose.yml`)
+2. Сгенерировать заранее self-signed SSL сертификаты (см. `./crt/generate_ssl.sh` )
+
 ### Генерация отчета о покрытии тестами
 ```shell
 mvn clean test jacoco:report
