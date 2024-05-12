@@ -10,14 +10,28 @@
 
 ---
 Todo:
-- [ ] Документация (wiki)
+- [ ] Docs (wiki, see Notion)
 - [ ] Swagger
-- [ ] Аутентификация
+- [ ] Security (consider [Zitadel](https://github.com/zitadel/zitadel) or [Keycloak](https://github.com/keycloak/keycloak))
+- [ ] TLS/SSL
+- [ ] Nginx (docker)
 
 ---
-#### Генерация отчета о покрытии тестами
+### Генерация отчета о покрытии тестами
 ```shell
 mvn clean test jacoco:report
 ```
 
 > Минимальное требование к покрытию тестами проекта **50%**
+
+### Запуск в докере
+```shell
+mvn clean install
+
+docker-compose build
+
+docker-compose up -d
+
+# Логи
+docker logs -f backend
+```
