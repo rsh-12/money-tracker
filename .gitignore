@@ -35,3 +35,9 @@ build/
 ### Other ###
 .env
 .data
+
+### SSL ###
+/crt/*.crt
+/crt/*.csr
+/crt/*.key
+/crt/*.pem
