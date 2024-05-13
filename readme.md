@@ -10,11 +10,11 @@
 
 ---
 Todo:
-- [ ] Docs (wiki, see Notion)
+- [x] Docs (wiki, see Notion)
 - [ ] Swagger
-- [ ] Security (consider [Zitadel](https://github.com/zitadel/zitadel) or [Keycloak](https://github.com/keycloak/keycloak))
+- [ ] Security ([Zitadel](https://github.com/zitadel/zitadel) or [Keycloak](https://github.com/keycloak/keycloak))
 - [ ] TLS/SSL
-- [ ] Nginx (docker)
+- [x] Nginx (docker)
 
 ---
 ### ВАЖНО!
@@ -32,11 +32,13 @@ mvn clean test jacoco:report
 ### Запуск в докере
 ```shell
 mvn clean install
+```
 
-docker-compose build
+```shell
+docker-compose up -d --build
+```
 
-docker-compose up -d
-
+```shell
 # Логи
 docker logs -f backend
 ```
