@@ -17,6 +17,9 @@ public class LayeredArchitectureTest {
     private static final String SERVICE_PACKAGE = "ru.money.tracker.service";
     private static final String REPOSITORY_PACKAGE = "ru.money.tracker.repository";
 
+    private static final String GENERATED_JOOQ_PACKAGE = "ru.money.tracker.generated";
+    private static final String MAPPER_PACKAGE = "ru.money.tracker.mapper";
+
     @ArchTest
     static final ArchRule layer_dependencies_are_respected = layeredArchitecture()
             .consideringAllDependencies()
@@ -49,5 +52,15 @@ public class LayeredArchitectureTest {
                     .that().resideInAPackage(REPOSITORY_PACKAGE + "..")
                     .and().areAnnotatedWith(Repository.class)
                     .should().haveSimpleNameEndingWith("Repository");
+
+    @ArchTest
+    static ArchRule generated_jooq_classes_should_be_accessible_in_repository_and_mapper_packages =
+            classes()
+                    .that().resideInAPackage(GENERATED_JOOQ_PACKAGE + "..")
+                    .should().onlyHaveDependentClassesThat().resideInAnyPackage(
+                            GENERATED_JOOQ_PACKAGE + "..",
+                            REPOSITORY_PACKAGE + "..",
+                            MAPPER_PACKAGE + ".."
+                    );
 
 }
