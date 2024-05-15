@@ -37,7 +37,7 @@ build/
 .data
 
 ### SSL ###
-/crt/*.crt
-/crt/*.csr
-/crt/*.key
-/crt/*.pem
+/config/certs/*.crt
+/config/certs/*.csr
+/config/certs/*.key
+/config/certs/*.pem
