@@ -4,5 +4,4 @@ spring:
     username: ${db.username:postgres}
     password: ${db.password:postgres}
   liquibase:
-    enabled: true
     change-log: classpath:/db/changelog-master.xml
