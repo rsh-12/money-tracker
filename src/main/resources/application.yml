@@ -1,7 +1,7 @@
 spring:
   datasource:
     url: ${db.url:jdbc:postgresql://localhost:5432/money_tracker}
-    username: ${db.username:postgres}
-    password: ${db.password:postgres}
+    username: ${db.username}
+    password: ${db.password}
   liquibase:
     change-log: classpath:/db/changelog-master.xml
