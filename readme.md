@@ -35,7 +35,7 @@ mvn clean install
 ```
 
 ```shell
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
 ```shell

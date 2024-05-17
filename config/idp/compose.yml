@@ -1,0 +1,55 @@
+services:
+
+  zitadel:
+    restart: on-failure
+    networks:
+      - zitadel
+    image: 'ghcr.io/zitadel/zitadel:v2.52.0'
+    container_name: zitadel
+    command: 'start-from-init --masterkey "MasterkeyNeedsToHave32Characters" --tlsMode disabled'
+    environment:
+      ZITADEL_DATABASE_POSTGRES_HOST: zitadel_db
+      ZITADEL_DATABASE_POSTGRES_PORT: 5433
+      ZITADEL_DATABASE_POSTGRES_DATABASE: ${ZITADEL_POSTGRES_DB}
+      ZITADEL_DATABASE_POSTGRES_USER_USERNAME: ${ZITADEL_DB_USER}
+      ZITADEL_DATABASE_POSTGRES_USER_PASSWORD: ${ZITADEL_DB_PASSWORD}
+      ZITADEL_DATABASE_POSTGRES_USER_SSL_MODE: disable
+      ZITADEL_DATABASE_POSTGRES_ADMIN_USERNAME: ${ZITADEL_POSTGRES_USER}
+      ZITADEL_DATABASE_POSTGRES_ADMIN_PASSWORD: ${ZITADEL_POSTGRES_PASSWORD}
+      ZITADEL_DATABASE_POSTGRES_ADMIN_SSL_MODE: disable
+      ZITADEL_EXTERNALSECURE: false
+      ZITADEL_PORT: 8000
+      ZITADEL_EXTERNALPORT: 8000
+    depends_on:
+      zitadel_db:
+        condition: 'service_healthy'
+    ports:
+      - '8000:8000'
+
+  zitadel_db:
+    restart: on-failure
+    image: postgres:15
+    container_name: zitadel_db
+    command: -p 5433
+    environment:
+      POSTGRES_DB: ${ZITADEL_POSTGRES_DB}
+      POSTGRES_USER: ${ZITADEL_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${ZITADEL_POSTGRES_PASSWORD}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - ../../data/zitadel/pg:/var/lib/postgresql/data/pgdata
+    networks:
+      - zitadel
+    healthcheck:
+      test: [ "CMD-SHELL", "sh -c 'pg_isready -U ${ZITADEL_POSTGRES_USER} -d ${ZITADEL_POSTGRES_DB} -p 5433'" ]
+      interval: '10s'
+      timeout: '30s'
+      retries: 5
+      start_period: '20s'
+    expose:
+      - "5433"
+    ports:
+      - "5433:5433"
+
+networks:
+  zitadel:
