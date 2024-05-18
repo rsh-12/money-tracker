@@ -1,6 +1,7 @@
 services:
 
   zitadel:
+    profiles: [idp]
     restart: on-failure
     networks:
       - zitadel
@@ -27,6 +28,7 @@ services:
       - '8000:8000'
 
   zitadel_db:
+    profiles: [idp]
     restart: on-failure
     image: postgres:15
     container_name: zitadel_db

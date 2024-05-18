@@ -5,3 +5,15 @@ spring:
     password: ${db.password}
   liquibase:
     change-log: classpath:/db/changelog-master.xml
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    deserialization:
+      accept-single-value-as-array: true
+  security:
+    oauth2:
+      resourceserver:
+        opaquetoken:
+          introspection-uri: ${introspection.uri}
+          client-id: ${client.id}
+          client-secret: ${client.secret}

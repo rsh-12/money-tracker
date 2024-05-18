@@ -1,15 +1,10 @@
 [![Java CI with Maven](https://github.com/BudgetBuddyApp/backend/actions/workflows/ci.yml/badge.svg)](https://github.com/BudgetBuddyApp/backend/actions/workflows/ci.yml)
 
-### Backend проекта MoneyTracker.
-
-###### Предоставляет REST API для работы над расходами:
-- Выборка данных: расходы по периодам, агрегация, поиск
-- Добавление расходов
-- Обновление расходов
-- Удаление расходов
+# Backend of the MoneyTracker project
 
 ---
 Todo:
+
 - [x] Docs (wiki, see Notion)
 - [ ] Swagger
 - [ ] Security ([Zitadel](https://github.com/zitadel/zitadel) or [Keycloak](https://github.com/keycloak/keycloak))
@@ -17,28 +12,38 @@ Todo:
 - [x] Nginx (docker)
 
 ---
-### ВАЖНО!
-Перед началом работы нужно:
-1. Создать `.env` файл и прописать туда нужные переменные среды (см. `docker-compose.yml`)
-2. Сгенерировать заранее self-signed SSL сертификаты (см. `./config/certs/generate_ssl.sh` )
 
-### Генерация отчета о покрытии тестами
+### IMPORTANT!
+
+Before starting work, you need to:
+
+1. Create a `.env` file and specify the necessary environment variables in it (see `config/env/template.env`)
+2. Optionally, generate self-signed certificates (see `config/certs/generate_certs.sh`)
+
+### Generation of the test coverage report
+
 ```shell
 mvn clean test jacoco:report
 ```
 
-> Минимальное требование к покрытию тестами проекта **50%**
+> The minimum test coverage requirement for the project is **50%**.
 
-### Запуск в докере
+## Docker
+Two compose scripts are used, each with its own profile: `backend` and `idp`.  
+_This needs to be taken into account!_
+
+### Run in Docker
+
 ```shell
 mvn clean install
 ```
 
 ```shell
-docker compose up -d --build
+# Run backend along with the IdP
+docker compose --profile "*" up -d --build
 ```
 
 ```shell
-# Логи
+# e.g. see backend logs
 docker logs -f backend
 ```

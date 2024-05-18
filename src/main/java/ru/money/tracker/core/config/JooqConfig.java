@@ -1,4 +1,4 @@
-package ru.money.tracker.config;
+package ru.money.tracker.core.config;
 
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
