@@ -42,5 +42,29 @@ services:
       - "80:80"
       - "443:443"
 
+  metrics:
+    image: victoriametrics/victoria-metrics:v1.101.0
+    container_name: metrics
+    command:
+      - "-promscrape.config=scrape.yaml"
+    volumes:
+      - ./config/metrics/scrape.yaml:/scrape.yaml
+      - ./data/victoria-metrics-data:/victoria-metrics-data
+    ports:
+      - "8428:8428"
+    depends_on:
+      - backend
+
+  grafana:
+    image: grafana/grafana-oss:11.0.0
+    container_name: grafana
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_USER}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD}
+    volumes:
+      - ./data/grafana:/var/lib/grafana
+    ports:
+      - "3000:3000"
+
 networks:
   backend:

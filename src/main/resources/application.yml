@@ -5,3 +5,14 @@ spring:
     password: ${db.password}
   liquibase:
     change-log: classpath:/db/changelog-master.xml
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - prometheus
+  metrics:
+    tags:
+      application: backend
