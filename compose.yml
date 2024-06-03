@@ -1,11 +1,12 @@
 include:
-  - path: ./config/idp/compose.yml
+  - ./config/idp/compose.yml
+  - ./config/metrics/compose.yml
 
 services:
+
   backend:
-    profiles: [backend]
-    build: .
-    image: money-tracker/backend
+    profiles: [ backend ]
+    image: backend:0.0.1-SNAPSHOT
     container_name: backend
     env_file:
       - path: .env
@@ -14,17 +15,19 @@ services:
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres/${POSTGRES_DB}
+    ports:
+      - "8080:8080"
     depends_on:
       - postgres
 
   postgres:
-    profiles: [backend]
+    profiles: [ backend ]
     image: postgres:15
     container_name: postgres
     ports:
       - "5432:5432"
     volumes:
-      - ./data/pg:/var/lib/postgresql/data/pgdata
+      - ${DATA}/pg:/var/lib/postgresql/data/pgdata
     env_file:
       - path: .env
         required: true
@@ -35,7 +38,7 @@ services:
       PGDATA: /var/lib/postgresql/data/pgdata
 
   nginx:
-    profiles: [backend]
+    profiles: [ backend ]
     image: nginx:1.26
     container_name: nginx
     depends_on:

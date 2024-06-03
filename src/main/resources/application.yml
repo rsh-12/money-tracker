@@ -17,3 +17,14 @@ spring:
           introspection-uri: ${introspection.uri}
           client-id: ${client.id}
           client-secret: ${client.secret}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - prometheus
+  metrics:
+    tags:
+      application: backend
