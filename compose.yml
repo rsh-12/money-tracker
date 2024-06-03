@@ -1,5 +1,5 @@
 include:
-  - path: ./config/metrics/compose.yml
+  - path: ./config/monitoring/compose.yml
 
 services:
 
