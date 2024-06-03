@@ -1,6 +1,6 @@
 include:
   - ./config/idp/compose.yml
-  - ./config/metrics/compose.yml
+  - ./config/monitoring/compose.yml
 
 services:
 
