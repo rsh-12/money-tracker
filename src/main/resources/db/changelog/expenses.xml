@@ -11,7 +11,6 @@
         </sql>
     </changeSet>
 
-
     <changeSet id="20240217-02" author="rakhmonov">
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
