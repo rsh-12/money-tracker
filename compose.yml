@@ -1,7 +1,7 @@
 services:
-
   backend:
-    image: backend:0.0.1-SNAPSHOT
+    build: .
+    image: money-tracker/backend
     container_name: backend
     env_file:
       - path: .env
@@ -10,14 +10,14 @@ services:
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres/${POSTGRES_DB}
-    ports:
-      - "8080:8080"
     depends_on:
       - postgres
 
   postgres:
     image: postgres:15
     container_name: postgres
+    ports:
+      - "5432:5432"
     volumes:
       - ./data/pg:/var/lib/postgresql/data/pgdata
     env_file:
