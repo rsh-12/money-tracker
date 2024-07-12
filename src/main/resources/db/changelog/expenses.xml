@@ -22,12 +22,13 @@
         </preConditions>
         <comment>Создание таблицы 'Расходы'</comment>
         <sql><![CDATA[
-            CREATE TABLE IF NOT EXISTS money_tracker.expense
+            CREATE TABLE money_tracker.expense
             (
                 id         BIGSERIAL PRIMARY KEY,
                 title      TEXT           NOT NULL,
                 amount     NUMERIC(38, 2) NOT NULL DEFAULT 0,
-                comment    TEXT,
+                date       DATE                    DEFAULT CURRENT_DATE NOT NULL,
+                comment    VARCHAR(250),
                 created_at timestamptz             DEFAULT CURRENT_TIMESTAMP,
                 updated_at timestamptz             DEFAULT CURRENT_TIMESTAMP
             );
@@ -36,6 +37,7 @@
             COMMENT ON COLUMN money_tracker.expense.id IS 'ID расхода';
             COMMENT ON COLUMN money_tracker.expense.title IS 'Наименование товаров или услуг';
             COMMENT ON COLUMN money_tracker.expense.amount IS 'Сумма расходов';
+            COMMENT ON COLUMN money_tracker.expense.date IS 'Дата расходов';
             COMMENT ON COLUMN money_tracker.expense.comment IS 'Комментарий';
             COMMENT ON COLUMN money_tracker.expense.created_at IS 'Дата и время создания записи';
             COMMENT ON COLUMN money_tracker.expense.updated_at IS 'Дата и время обновления записи';
@@ -54,7 +56,7 @@
         </preConditions>
         <comment>Создание таблицы 'Категория'</comment>
         <sql><![CDATA[
-            CREATE TABLE IF NOT EXISTS money_tracker.category
+            CREATE TABLE money_tracker.category
             (
                 id         BIGSERIAL PRIMARY KEY,
                 name       TEXT NOT NULL UNIQUE,
@@ -82,7 +84,7 @@
         </preConditions>
         <comment>Создание таблицы 'Связь расходов с категориями'</comment>
         <sql><![CDATA[
-            CREATE TABLE IF NOT EXISTS money_tracker.expense_category
+            CREATE TABLE money_tracker.expense_category
             (
                 id          BIGSERIAL PRIMARY KEY,
                 expense_id  BIGINT REFERENCES money_tracker.expense (id) ON DELETE CASCADE,
