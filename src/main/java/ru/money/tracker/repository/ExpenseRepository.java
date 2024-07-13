@@ -1,4 +1,4 @@
-package ru.money.tracker.repository.expense;
+package ru.money.tracker.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.jooq.DSLContext;

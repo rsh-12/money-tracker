@@ -10,8 +10,10 @@ import org.springframework.dao.DataIntegrityViolationException;
 import ru.money.tracker.generated.tables.records.ExpenseRecord;
 import ru.money.tracker.model.dto.ExpenseDto;
 import ru.money.tracker.repository.BaseRepositoryTest;
+import ru.money.tracker.repository.ExpenseRepository;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -32,6 +34,7 @@ class ExpenseRepositoryTest extends BaseRepositoryTest {
         expense = new ExpenseDto()
                 .setTitle("Bread")
                 .setAmount(BigDecimal.valueOf(44.90))
+                .setDate(LocalDate.now())
                 .setComment("Some comment");
     }
 
