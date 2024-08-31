@@ -2,10 +2,10 @@ include:
   - path: ./config/monitoring/compose.yml
 
 services:
-
   backend:
+    build: .
+    image: money-tracker/backend
     profiles: [ backend ]
-    image: backend:0.0.1-SNAPSHOT
     container_name: backend
     env_file:
       - path: .env
@@ -23,6 +23,8 @@ services:
     profiles: [ backend ]
     image: postgres:15
     container_name: postgres
+    ports:
+      - "5432:5432"
     volumes:
       - ${DATA}/pg:/var/lib/postgresql/data/pgdata
     env_file:
