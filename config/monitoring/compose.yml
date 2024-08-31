@@ -24,3 +24,14 @@ services:
       - ./grafana/:/etc/grafana/
     ports:
       - "3000:3000"
+
+  pg-exporter:
+    profiles: [ monitoring ]
+    image: quay.io/prometheuscommunity/postgres-exporter
+    container_name: pg-exporter
+    environment:
+      DATA_SOURCE_URI: postgres:5432/${POSTGRES_DB}?sslmode=disable
+      DATA_SOURCE_USER: ${POSTGRES_USER}
+      DATA_SOURCE_PASS: ${POSTGRES_PASSWORD}
+    ports:
+      - "9187:9187"
