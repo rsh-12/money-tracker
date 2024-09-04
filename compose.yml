@@ -3,10 +3,10 @@ include:
   - ./config/monitoring/compose.yml
 
 services:
-
   backend:
+    build: .
+    image: money-tracker/backend
     profiles: [ backend ]
-    image: backend:0.0.1-SNAPSHOT
     container_name: backend
     env_file:
       - path: .env
