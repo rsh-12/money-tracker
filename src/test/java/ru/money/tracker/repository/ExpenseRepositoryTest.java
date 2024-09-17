@@ -1,4 +1,4 @@
-package ru.money.tracker.repository.expense;
+package ru.money.tracker.repository;
 
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import ru.money.tracker.generated.tables.records.ExpenseRecord;
 import ru.money.tracker.model.dto.ExpenseDto;
-import ru.money.tracker.repository.BaseRepositoryTest;
-import ru.money.tracker.repository.ExpenseRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -90,7 +88,8 @@ class ExpenseRepositoryTest extends BaseRepositoryTest {
         }
     }
 
-    private @NotNull ExpenseRecord fetchOneById(Long id) {
+    @NotNull
+    private ExpenseRecord fetchOneById(Long id) {
         return dslContext.selectFrom(EXPENSE)
                 .where(EXPENSE.ID.eq(id))
                 .fetchOptional()
