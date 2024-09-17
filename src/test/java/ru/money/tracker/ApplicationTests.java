@@ -4,11 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApplicationTests extends TestContainer {
+class ApplicationTests extends PostgreSqlContainerTest {
 
     @Test
-    void contextLoads() {
-
-    }
+    void contextLoads() {}
 
 }
