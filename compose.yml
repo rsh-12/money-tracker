@@ -24,8 +24,6 @@ services:
     profiles: [ backend ]
     image: postgres:15
     container_name: postgres
-    ports:
-      - "5432:5432"
     volumes:
       - ${DATA}/pg:/var/lib/postgresql/data/pgdata
     env_file:
