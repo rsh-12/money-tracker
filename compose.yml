@@ -1,4 +1,5 @@
 services:
+
   backend:
     build: .
     image: money-tracker/backend
@@ -19,7 +20,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./data/pg:/var/lib/postgresql/data/pgdata
+      - postgres_data:/var/lib/postgresql/data/pgdata
     env_file:
       - path: .env
         required: true
@@ -41,6 +42,9 @@ services:
     ports:
       - "80:80"
       - "443:443"
+
+volumes:
+  postgres_data:
 
 networks:
   backend:
