@@ -32,6 +32,9 @@ services:
     env_file:
       - path: .env
         required: true
+    command: >
+      postgres
+      -c shared_preload_libraries='pg_stat_statements'
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
